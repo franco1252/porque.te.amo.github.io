@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-" />
+  <title>Carta para Ti ??</title>
+  <link rel="icon" href="imagenes/cora.png" type="image/x-icon">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background: linear-gradient(to bottom, #ffe6ea, #ffccd5);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background: #ff9aa2;
+      position: relative;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: transform 0.5s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 200px;
+      background: #ffb6b9;
+      clip-path: polygon(0 0, 50% 50%, 100% 0);
+      transition: transform 0.5s ease;
+      transform-origin: top;
+    }
+
+    .envelope.open::before {
+      transform: rotateX(-180deg);
+    }
+
+    .card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 40px 20px;
+      background-color: #fff0f5;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+      z-index: 4;
+    }
+
+    .card.open {
+      display: flex;
+    }
+
+    .card .message {
+      font-size: 2em;
+      color: #8a0037;
+      margin: 15px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1.5s ease forwards;
+    }
+
+    .card .message:nth-child(1) { animation-delay: 1s; }
+    .card .message:nth-child(2) { animation-delay: 3s; }
+    .card .message:nth-child(3) { animation-delay: 5s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .hearts, .lights {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart, .light {
+      position: absolute;
+    }
+
+    .heart {
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatUp 6s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
+    }
+
+    .light {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: moveLight 10s linear infinite;
+    }
+
+    @keyframes moveLight {
+      0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-1000px) translateX(100px) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .click-text {
+      position: absolute;
+      top: calc(100% + 20px);
+      left: 50%;
+      transform: translateX(-50%);
+      color: #a00044;
+      font-size: 1.2em;
+      animation: blink 1.5s infinite;
+      z-index: 6;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .side-heart {
+      position: absolute;
+      font-size: 5em;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 2;
+    }
+
+    .side-heart.left {
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .side-heart.right {
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .side-heart.visible {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope" id="envelope">
+    <div class="click-text">Haz clic para abrir ??</div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="message">Para mí amor</div>
+	<div class="message">Desde que llegaste a mi vida, todo tiene un brillo especial no importa lo que pase quiero que sepas que siempre te voy a amar con cada parte de mi alma y con cada pequeño detalle que nazca del corazón voy a enamorarte todos los días no con grandes gestos sino con los pequeños que valen oro una mirada una nota escrita a mano una flor inesperada un mensaje dulce al despertar o una sorpresa con tu personaje favorito hello kitty que me recuerda lo dulce  tierna y única que eres tú cada día contigo es un regalo y quiero que sientas cuánto te amo en cada momento que compartamos mi amor por ti es un jardín que nunca dejaré de cuidar</div>
+    <div class="message">Y te voy a dedicar una poema esperó te guste </div>
+    <div class="message">En tus ojos encontré mi calma y en tu risa la razón de mi día te amo con toda mi alma mi dulce y eterna alegría te conquistaré con lo sencillo como un beso antes de dormir una Kitty en tu bolsillo y promesas que han de existir porque amarte es mi destino y cada detalle será mi verdad serás mi amor mi camino mi presente y mi eternidad</div>
+  </div>
+
+  <div class="side-heart left" id="heartLeft">??</div>
+  <div class="side-heart right" id="heartRight">??</div>
+
+  <div class="hearts" id="hearts"></div>
+  <div class="lights" id="lights"></div>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <script>
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('bg-music');
+      audio.play().catch(() => {
+        document.body.addEventListener('click', () => {
+          audio.play();
+        }, { once: true });
+      });
+    });
+
+    const lightsContainer = document.getElementById('lights');
+    function createLight() {
+      const light = document.createElement('div');
+      light.className = 'light';
+      light.style.left = Math.random() * 100 + 'vw';
+      light.style.top = Math.random() * 100 + 'vh';
+      light.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 85%)`;
+      light.style.animationDuration = 6 + Math.random() * 6 + 's';
+      lightsContainer.appendChild(light);
+      setTimeout(() => light.remove(), 12000);
+    }
+    setInterval(createLight, 500);
+
+    const envelope = document.getElementById('envelope');
+    const card = document.getElementById('card');
+    const heartLeft = document.getElementById('heartLeft');
+    const heartRight = document.getElementById('heartRight');
+    const heartsContainer = document.getElementById('hearts');
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 4 + Math.random() * 3 + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.add('open');
+      card.classList.add('open');
+
+      setTimeout(() => {
+        heartLeft.classList.add('visible');
+        heartRight.classList.add('visible');
+        setInterval(createHeart, 300);
+      }, 1000);
+
+      setTimeout(() => {
+        envelope.style.display = 'none';
+      }, 600);
+    });
+  </script>
+
+</body>
+</html>
+
